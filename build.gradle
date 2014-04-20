@@ -1,0 +1,40 @@
+apply plugin: "java"
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile "junit:junit:4.11"
+    compile "args4j:args4j:2.0.21"
+}
+
+loadConfiguration()
+
+def loadConfiguration() {
+    def pitVersion = hasProperty("pit-version") ? getProperty("pit-version") : "0.33"
+    project.ext.set("pitVersion", pitVersion)
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+    dependencies {
+        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:0.33.0-SNAPSHOT'
+    }
+}
+
+
+apply plugin: "pitest"
+
+
+pitest {
+    pitestVersion = "$pitVersion"
+    targetClasses = ["ru.gvsmirnov.sample*"]
+    timestampedReports = false
+}
