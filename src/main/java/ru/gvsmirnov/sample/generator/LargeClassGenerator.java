@@ -106,6 +106,7 @@ public class LargeClassGenerator {
     }
 
     private void generateTestMethod(String methodName, String className, Consumer<String> consumer) {
+        consumer.accept("@org.junit.Test");
         consumer.accept(String.format("public void %s() {", methodName));
 
         Arrays.asList(String.format(TEST_METHOD_BODY, className, methodName).split("\n")).forEach(indent(consumer));
@@ -145,7 +146,7 @@ public class LargeClassGenerator {
         private String rootFolder = ".";
 
         @Option(name = "-s", usage = "Simulation")
-        private boolean simulation = true;
+        private boolean simulation = false;
 
         @Override
         public String toString() {
