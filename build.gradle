@@ -18,6 +18,22 @@ def loadConfiguration() {
     project.ext.set("pitVersion", pitVersion)
 }
 
+task cleanGenerated(type: Delete) {
+    description 'Cleans generated files'
+    delete 'src/main/java/ru/gvsmirnov/sample/generated'
+    delete 'src/test/java/ru/gvsmirnov/sample/generated'
+}
+
+task generate(type: JavaExec, dependsOn: [classes, cleanGenerated]) {
+    description 'Generates the standard sample classes'
+    main 'ru.gvsmirnov.sample.generator.LargeClassGenerator'
+    classpath sourceSets.main.runtimeClasspath
+
+    if (project.hasProperty('genArgs')) {
+        args genArgs.split(" ")
+    }
+}
+
 buildscript {
     repositories {
         jcenter()
