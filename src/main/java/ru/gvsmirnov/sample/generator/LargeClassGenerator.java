@@ -6,6 +6,7 @@ import org.kohsuke.args4j.Option;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -62,7 +63,13 @@ public class LargeClassGenerator {
         File root = new File(rootFolder);
         String path = (prefix + "." + targetPackage).replace('.', File.separatorChar);
 
-        return new File(new File(root, path), className + (isTest ? "Test" : "") +  ".java");
+        File destinationFolder = new File(root, path);
+
+        try {
+            destinationFolder = destinationFolder.getCanonicalFile();
+        } catch (IOException ignored) {}
+
+        return new File(destinationFolder, className + (isTest ? "Test" : "") +  ".java");
     }
 
     private void generateSourceClass(String className, Consumer<String> consumer) {
