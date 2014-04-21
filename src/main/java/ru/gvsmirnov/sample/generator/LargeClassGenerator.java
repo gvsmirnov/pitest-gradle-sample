@@ -134,6 +134,7 @@ public class LargeClassGenerator {
             parser.parseArgument(args);
             new LargeClassGenerator(options).generateStuff();
         } catch( CmdLineException e ) {
+            System.err.println(e.getMessage());
             parser.printUsage(System.err);
         }
     }
