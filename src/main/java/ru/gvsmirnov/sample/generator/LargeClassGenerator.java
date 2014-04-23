@@ -153,7 +153,7 @@ public class LargeClassGenerator {
         @Option(name = "-r", usage = "Root folder")
         private String rootFolder = ".";
 
-        @Option(name = "-s", usage = "Simulation")
+        @Option(name = "-s", usage = "Run in simulated mode, i.e. do not actually write anything to disk")
         private boolean simulation = false;
 
         @Override
