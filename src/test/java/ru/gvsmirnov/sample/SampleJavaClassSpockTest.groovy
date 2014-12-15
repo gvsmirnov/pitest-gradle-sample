@@ -2,12 +2,12 @@ package ru.gvsmirnov.sample
 
 import spock.lang.Specification
 
-import static ru.gvsmirnov.sample.SampleSmallClass.doSomeMath
+import static SampleJavaClass.doSomeMath
 
 /**
  * @author Gleb Smirnov <me@gvsmirnov.ru>
  */
-class SampleSmallClassSpockTest extends Specification {
+class SampleJavaClassSpockTest extends Specification {
 
     def "Math is solid"() {
         expect:

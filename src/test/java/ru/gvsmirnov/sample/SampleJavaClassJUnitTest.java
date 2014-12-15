@@ -1,14 +1,12 @@
 package ru.gvsmirnov.sample;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertEquals;
-import static ru.gvsmirnov.sample.SampleSmallClass.doSomeMath;
+import static org.junit.Assert.assertEquals;
+import static ru.gvsmirnov.sample.SampleJavaClass.doSomeMath;
 
-/**
- * @author Gleb Smirnov <me@gvsmirnov.ru>
- */
-public class SampleSmallClassTestNGTest {
+public class SampleJavaClassJUnitTest {
+
     @Test
     public void testMath() {
         final int expected = 0;
@@ -19,4 +17,5 @@ public class SampleSmallClassTestNGTest {
             }
         }
     }
+
 }

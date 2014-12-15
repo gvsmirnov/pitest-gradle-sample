@@ -1,6 +1,6 @@
 package ru.gvsmirnov.sample;
 
-public class SampleSmallClass {
+public class SampleJavaClass {
 
     /**
      * Always returns zero, while executing some convoluted math

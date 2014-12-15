@@ -5,8 +5,8 @@ package ru.gvsmirnov.sample
  */
 class SampleGroovyClass {
 
-    def doSomeMath(a, b) {
-        SampleSmallClass.doSomeMath(a, b) + a + b
+    public static int doSomeMath(a, b) {
+        SampleJavaClass.doSomeMath(a, b) + a + b
     }
 
 }
