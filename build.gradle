@@ -1,4 +1,16 @@
-apply plugin: "java"
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.1'
+    }
+}
+
+apply plugin: 'info.solidsoft.pitest'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -9,14 +21,19 @@ repositories {
 dependencies {
     testCompile "junit:junit:4.11"
     testCompile "org.testng:testng:6.1.1"
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+
     compile "args4j:args4j:2.0.21"
+    compile "org.codehaus.groovy:groovy-all:2.3.7"
 }
 
-loadConfiguration()
+pitest {
+    targetClasses = ["ru.gvsmirnov.sample*"]
+    timestampedReports = false
+}
 
-def loadConfiguration() {
-    def pitVersion = hasProperty("pit-version") ? getProperty("pit-version") : "0.33"
-    project.ext.set("pitVersion", pitVersion)
+task spock(type: Test) {
+    useJUnit {}
 }
 
 task cleanGenerated(type: Delete) {
@@ -35,28 +52,4 @@ task generate(type: JavaExec, dependsOn: [classes, cleanGenerated]) {
     }
 }
 
-buildscript {
-    repositories {
-        jcenter()
-        mavenLocal()
-    }
-    dependencies {
-        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:0.33.2-SNAPSHOT'
-    }
-}
-
-
-apply plugin: "pitest"
-
-test {
-    useTestNG()
-    options.excludeGroups = ['beta']
-}
-
-
-pitest {
-    pitestVersion = "$pitVersion"
-    targetClasses = ["ru.gvsmirnov.sample*"]
-    timestampedReports = false
-    excludedGroups = ['beta']
-}
+test.dependsOn(spock)
