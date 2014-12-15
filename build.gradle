@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+
 buildscript {
     repositories {
         jcenter()
@@ -10,12 +12,23 @@ buildscript {
     }
 }
 
-apply plugin: 'info.solidsoft.pitest'
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-
 repositories {
     jcenter()
+}
+
+sourceSets {
+    main {
+        java { srcDirs = [] }
+        groovy { srcDirs 'src/main/java' }
+    }
+    test {
+        java { srcDirs = [] }
+        groovy { srcDirs 'src/test/java' }
+    }
+    dist {
+        java { srcDirs 'src/dist/java' }
+        groovy { srcDirs = [] }
+    }
 }
 
 dependencies {
@@ -26,14 +39,11 @@ dependencies {
     compile "args4j:args4j:2.0.21"
     compile "org.codehaus.groovy:groovy-all:2.3.7"
 }
+apply plugin: 'info.solidsoft.pitest'
 
 pitest {
     targetClasses = ["ru.gvsmirnov.sample*"]
     timestampedReports = false
-}
-
-task spock(type: Test) {
-    useJUnit {}
 }
 
 task cleanGenerated(type: Delete) {
@@ -52,4 +62,16 @@ task generate(type: JavaExec, dependsOn: [classes, cleanGenerated]) {
     }
 }
 
-test.dependsOn(spock)
+task spock(type: Test) {
+    useJUnit()
+}
+
+task testNg(type: Test) {
+    useTestNG()
+}
+
+test {
+    useJUnit()
+}
+
+test.dependsOn([spock, testNg])
