@@ -1,11 +1,13 @@
-package ru.gvsmirnov.sample
+package ru.gvsmirnov.sample.groovy
+
+import ru.gvsmirnov.sample.SampleJavaClass
 
 /**
  * @author Gleb Smirnov <me@gvsmirnov.ru>
  */
 class SampleGroovyClass {
 
-    public static int doSomeMath(int a, int b) {
+    static def doSomeMath(a, b) {
         a + b + SampleJavaClass.doSomeMath(a, b) - a - b
     }
 

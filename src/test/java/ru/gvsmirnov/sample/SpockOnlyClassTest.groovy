@@ -1,11 +1,13 @@
 package ru.gvsmirnov.sample
 
-import static ru.gvsmirnov.sample.SpockOnlyClassTest.doSomeMath
+import spock.lang.Specification
+
+import static ru.gvsmirnov.sample.SpockOnlyClass.doSomeMath
 
 /**
  * @author Gleb Smirnov <me@gvsmirnov.ru>
  */
-class SpockOnlyClassTest {
+class SpockOnlyClassTest extends Specification {
 
     def "Math is solid"() {
         expect:

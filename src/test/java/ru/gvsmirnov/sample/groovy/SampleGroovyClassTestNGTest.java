@@ -1,9 +1,9 @@
-package ru.gvsmirnov.sample;
+package ru.gvsmirnov.sample.groovy;
 
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
-import static ru.gvsmirnov.sample.SampleGroovyClass.doSomeMath;
+import static ru.gvsmirnov.sample.groovy.SampleGroovyClass.doSomeMath;
 
 /**
  * @author Gleb Smirnov <me@gvsmirnov.ru>

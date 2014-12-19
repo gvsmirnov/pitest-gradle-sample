@@ -1,9 +1,9 @@
-package ru.gvsmirnov.sample;
+package ru.gvsmirnov.sample.groovy;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static ru.gvsmirnov.sample.SampleGroovyClass.doSomeMath;
+import static ru.gvsmirnov.sample.groovy.SampleGroovyClass.doSomeMath;
 
 public class SampleGroovyClassJUnitTest {
 
