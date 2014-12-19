@@ -3,6 +3,10 @@ apply plugin: 'groovy'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
+
 buildscript {
     repositories {
         jcenter()
@@ -46,6 +50,20 @@ pitest {
     timestampedReports = false
 }
 
+task spock(type: Test) {
+    useJUnit()
+}
+
+task testNg(type: Test) {
+    useTestNG()
+}
+
+test {
+    useJUnit()
+}
+
+test.dependsOn([spock, testNg])
+
 task cleanGenerated(type: Delete) {
     description 'Cleans generated files'
     delete 'src/main/java/ru/gvsmirnov/sample/generated'
@@ -61,17 +79,3 @@ task generate(type: JavaExec, dependsOn: [classes, cleanGenerated]) {
         args genArgs.split(" ")
     }
 }
-
-task spock(type: Test) {
-    useJUnit()
-}
-
-task testNg(type: Test) {
-    useTestNG()
-}
-
-test {
-    useJUnit()
-}
-
-test.dependsOn([spock, testNg])
