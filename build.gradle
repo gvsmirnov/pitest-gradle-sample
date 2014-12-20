@@ -79,3 +79,29 @@ task generate(type: JavaExec, dependsOn: [classes, cleanGenerated]) {
         args genArgs.split(" ")
     }
 }
+
+task(decompileClasses) << {
+    def decompiledClasses = 0
+    fileTree(sourceSets.main.output.classesDir).each { classFile ->
+        def targetFile = new File(classFile.absolutePath.
+                replace("classes", "decompiled").
+                replace(".class", ".decompiled"))
+
+        targetFile.parentFile.mkdirs()
+        targetFile.write(decompile(classFile))
+        decompiledClasses++
+    }
+    println("Decompiled $decompiledClasses successfully")
+}
+
+decompileClasses.dependsOn(classes)
+
+def decompile(path) {
+    def rawText = "javap -c -p $path".execute().text
+
+    stripCodes(rawText)
+}
+
+def stripCodes(String decompiled) {
+    decompiled.replaceAll("[ ]+\\d+:", " " * 5);
+}
