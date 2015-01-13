@@ -29,10 +29,6 @@ sourceSets {
         java { srcDirs = [] }
         groovy { srcDirs 'src/test/java' }
     }
-    dist {
-        java { srcDirs 'src/dist/java' }
-        groovy { srcDirs = [] }
-    }
 }
 
 dependencies {
